@@ -24,9 +24,6 @@ def analyse(orig_df):
     anomalies = pd.DataFrame()
     for city in city_seasons_stats['city'].unique():
         for season in ['winter', 'spring', 'summer', 'autumn']:
-            city_season_df = df[(df['city'] == city) & (df['season'] == season)]
-            cur_stat = city_seasons_stats[(city_seasons_stats['city'] == city) &
-                                                (city_seasons_stats['season'] == season)]
             anomalies = pd.concat([anomalies, find_anomalies(city, season, df, city_seasons_stats)])
             
     return (df, city_seasons_stats, anomalies)
@@ -49,15 +46,10 @@ if loaded_file:
     df = pd.read_csv(loaded_file)
     unique_vals = df['city'].unique()
     city_to_check = st.selectbox('city', unique_vals, key=f"city")
-    # season_to_check = st.selectbox('season', ['summer', 'spring', 'winter', 'autumns'], 
-    #                              key=f"season")
     df, stats, anomalies = analyse(df)
     df = df[df['city'] == city_to_check]
     stats = stats[stats['city'] == city_to_check]
     anomalies = anomalies[anomalies['city'] == city_to_check]
-    # st.dataframe(df)
-    # st.dataframe(stats)
-    # st.dataframe(anomalies)
 
 
 if city_to_check:
