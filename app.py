@@ -1,14 +1,7 @@
 import streamlit as st
 import pandas as pd
-import sklearn
-import re
-import numpy as np
 import plotly.express as px
-import seaborn as sns
-import matplotlib.pyplot as plt
-import phik
 import requests
-from datetime import datetime
 
 def find_anomalies(city, season, df, city_seasons_stats):
     city_season_df = df[(df['city'] == city) & (df['season'] == season)]
